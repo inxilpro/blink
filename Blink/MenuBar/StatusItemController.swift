@@ -11,6 +11,8 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         let pauseUntilResumed: () -> Void
         let resume: () -> Void
         let openSettings: () -> Void
+        let canCheckForUpdates: () -> Bool
+        let checkForUpdates: () -> Void
         let copyDiagnostics: () -> Void
         let quit: () -> Void
     }
@@ -129,6 +131,9 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         menu.addItem(detectionSubmenuItem())
         menu.addItem(.separator())
         menu.addItem(ClosureMenuItem("Settings…", keyEquivalent: ",", handler: actions.openSettings))
+        if actions.canCheckForUpdates() {
+            menu.addItem(ClosureMenuItem("Check for Updates…", handler: actions.checkForUpdates))
+        }
         menu.addItem(ClosureMenuItem("Quit Blink", keyEquivalent: "q", handler: actions.quit))
     }
 

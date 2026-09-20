@@ -16,6 +16,8 @@ final class AppController: NSObject, NSApplicationDelegate {
         isCaptureActive: { [capture] in capture.isActive }
     )
 
+    private let updater = UpdaterController()
+
     private lazy var overlay = OverlayController(settings: settings)
     private lazy var settingsWindow = SettingsWindowController(settings: settings)
 
@@ -31,6 +33,11 @@ final class AppController: NSObject, NSApplicationDelegate {
             pauseUntilResumed: { [weak self] in self?.scheduler.pause(until: nil) },
             resume: { [weak self] in self?.scheduler.resume() },
             openSettings: { [weak self] in self?.settingsWindow.show() },
+            // The menu is rebuilt on every open, so this is re-read each time.
+            // Debug builds never start the updater, and the item stays hidden
+            // rather than permanently disabled.
+            canCheckForUpdates: { [weak self] in self?.updater.canCheckForUpdates ?? false },
+            checkForUpdates: { [weak self] in self?.updater.checkForUpdates() },
             copyDiagnostics: { [weak self] in self?.copyDiagnostics() },
             quit: { NSApp.terminate(nil) }
         )

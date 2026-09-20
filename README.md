@@ -30,6 +30,10 @@ By default Blink runs whenever you're at the Mac. Settings can narrow that to a 
 
 ### Menu bar
 
+**Check for Updates…** appears in the menu when Sparkle is running (Release
+builds only). Updates are signed and delivered through the GitHub Release
+feed; see `Documentation/RELEASING.md`.
+
 The icon reflects state: `eye` (running), `eye.fill` (break imminent/active), `eye.slash` (paused or outside your active hours), `hourglass` (break deferred by a call/share). The menu shows time until the next break plus: Take Break Now, Skip Next Break, Pause for 1 Hour / Until Tomorrow / Until Resumed, Resume, Settings, and Quit. An optional setting shows minutes remaining as menu bar text.
 
 ### Settings
@@ -51,6 +55,7 @@ AppKit lifecycle with SwiftUI for content views. Everything is composed in `AppC
 | `SystemIdle` | Idle seconds via `CGEventSource` timestamps (no event tap, no permissions). |
 | `StatusItemController` | Menu bar icon + menu. |
 | `AppSettings` | `@Observable` settings persisted to `UserDefaults`. |
+| `UpdaterController` | Owns the one Sparkle updater. Starts only in Release builds, so Debug runs and tests never reach the network. |
 
 The scheduler is fully unit-tested (`BlinkTests`) against a virtual clock — cycles, idle resets, capture deferral, the deferral cap, pause/resume, system suspension, and the active hours/days window (including overnight windows and weekend gaps) are all covered deterministically.
 
@@ -72,6 +77,14 @@ Two surfaces answer "why does Blink think I'm on a call?":
   /usr/bin/log show --last 1h --predicate 'subsystem == "com.cmorrell.Blink"'
   /usr/bin/log stream --predicate 'subsystem == "com.cmorrell.Blink"'
   ```
+
+## Releasing
+
+Push a `vX.Y.Z` tag. `.github/workflows/release.yml` tests, builds, signs,
+notarizes, staples, and publishes a DMG, a zip, and a signed Sparkle appcast to
+the GitHub Release. `.github/workflows/ci.yml` builds and tests every push to
+`main` and every PR. `Documentation/RELEASING.md` covers the secrets, the
+Sparkle key, and how to verify a release.
 
 ## Building
 

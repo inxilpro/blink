@@ -30,7 +30,8 @@ xcuserdata/
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 Packages/
 Package.pins
-Package.resolved
+# Package.resolved is deliberately committed: this is an app, not a library, and
+# release.yml reads the resolved Sparkle version out of it.
 
 # CocoaPods / Carthage / Accio (unused today, harmless if adopted later)
 Pods/

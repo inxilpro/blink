@@ -1,0 +1,55 @@
+# CI: an unsigned Release build of the app plus the unit tests (BlinkTests)
+# through the shared "Blink" scheme. UI tests are excluded: they need a
+# logged-in GUI session and drive real windows.
+#
+# Runner image / Xcode: the project is objectVersion 77 and targets macOS 15.7,
+# so any Xcode 26.x on the `macos-26` image can build it. The image default is
+# used rather than a pinned /Applications/Xcode_*.app, because a pinned path
+# that the image later drops fails the whole workflow; `xcodebuild -version`
+# records what actually ran. Pin XCODE_APP here and in release.yml together if
+# a specific Xcode ever becomes necessary.
+# https://github.com/actions/runner-images#available-images
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    name: Build app (unsigned) and run unit tests
+    runs-on: macos-26
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Build Blink
+        run: |
+          set -o pipefail
+          xcodebuild build \
+            -project Blink.xcodeproj \
+            -scheme Blink \
+            -configuration Release \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY=""
+
+      - name: Run unit tests
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project Blink.xcodeproj \
+            -scheme Blink \
+            -destination 'platform=macOS' \
+            -only-testing:BlinkTests \
+            -derivedDataPath DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY=""

@@ -29,9 +29,22 @@
 		6B4223C6300FD64900A433B1 /* BlinkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlinkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5C0000000000000000000001 /* Exceptions for "Blink" folder in "Blink" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 6B4223AE300FD64800A433B1 /* Blink */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6B4223B1300FD64800A433B1 /* Blink */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5C0000000000000000000001 /* Exceptions for "Blink" folder in "Blink" target */,
+			);
 			path = Blink;
 			sourceTree = "<group>";
 		};
@@ -112,6 +125,7 @@
 			);
 			name = Blink;
 			packageProductDependencies = (
+				5C0000000000000000000004 /* Sparkle */,
 			);
 			productName = Blink;
 			productReference = 6B4223AF300FD64800A433B1 /* Blink.app */;
@@ -195,6 +209,9 @@
 			);
 			mainGroup = 6B4223A6300FD64800A433B1;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5C0000000000000000000003 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6B4223B0300FD64800A433B1 /* Products */;
 			projectDirPath = "";
@@ -403,6 +420,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Blink/Info.plist;
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -436,6 +454,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Blink/Info.plist;
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -575,6 +594,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5C0000000000000000000003 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5C0000000000000000000004 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5C0000000000000000000003 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6B4223A7300FD64800A433B1 /* Project object */;
 }
