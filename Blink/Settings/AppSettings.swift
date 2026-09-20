@@ -23,6 +23,7 @@ final class AppSettings {
     var skipDuringCapture: Bool { didSet { persist(skipDuringCapture, forKey: Keys.skipDuringCapture, oldValue: oldValue) } }
     var playSounds: Bool { didSet { persist(playSounds, forKey: Keys.playSounds, oldValue: oldValue) } }
     var showTimeRemainingInMenuBar: Bool { didSet { persist(showTimeRemainingInMenuBar, forKey: Keys.showTimeRemaining, oldValue: oldValue) } }
+    var showDebugMenu: Bool { didSet { persist(showDebugMenu, forKey: Keys.showDebugMenu, oldValue: oldValue) } }
 
     var limitToActiveHours: Bool { didSet { persist(limitToActiveHours, forKey: Keys.limitToActiveHours, oldValue: oldValue) } }
     /// Minutes from midnight; an end at or before the start means the window runs overnight.
@@ -76,6 +77,7 @@ final class AppSettings {
         static let skipDuringCapture = "skipDuringCapture"
         static let playSounds = "playSounds"
         static let showTimeRemaining = "showTimeRemainingInMenuBar"
+        static let showDebugMenu = "showDebugMenu"
         static let limitToActiveHours = "limitToActiveHours"
         static let activeStart = "activeStartMinute"
         static let activeEnd = "activeEndMinute"
@@ -96,6 +98,7 @@ final class AppSettings {
             Keys.skipDuringCapture: true,
             Keys.playSounds: false,
             Keys.showTimeRemaining: false,
+            Keys.showDebugMenu: false,
             Keys.limitToActiveHours: false,
             Keys.activeStart: 9 * 60,
             Keys.activeEnd: 17 * 60,
@@ -110,6 +113,7 @@ final class AppSettings {
         skipDuringCapture = defaults.bool(forKey: Keys.skipDuringCapture)
         playSounds = defaults.bool(forKey: Keys.playSounds)
         showTimeRemainingInMenuBar = defaults.bool(forKey: Keys.showTimeRemaining)
+        showDebugMenu = defaults.bool(forKey: Keys.showDebugMenu)
         limitToActiveHours = defaults.bool(forKey: Keys.limitToActiveHours)
         activeStartMinute = ActiveSchedule.minuteRange.clamping(defaults.integer(forKey: Keys.activeStart))
         activeEndMinute = ActiveSchedule.minuteRange.clamping(defaults.integer(forKey: Keys.activeEnd))

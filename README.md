@@ -38,7 +38,7 @@ The icon reflects state: `eye` (running), `eye.fill` (break imminent/active), `e
 
 ### Settings
 
-Settings (⌘, from the menu) persist in `UserDefaults`: work interval, break duration, pre-break lead time, active hours and days, dim level, idle threshold, skip-during-capture toggle, launch at login (via `SMAppService`), sounds, and menu bar countdown text.
+Settings (⌘, from the menu) persist in `UserDefaults`: work interval, break duration, pre-break lead time, active hours and days, dim level, idle threshold, skip-during-capture toggle, launch at login (via `SMAppService`), sounds, menu bar countdown text, and the debug menu toggle.
 
 ## Architecture
 
@@ -70,7 +70,7 @@ The scheduler is fully unit-tested (`BlinkTests`) against a virtual clock — cy
 
 Two surfaces answer "why does Blink think I'm on a call?":
 
-- **Menu bar → Detection** shows the live per-device state of every camera and audio input, and **Copy Diagnostics** puts a full state dump (phase, deferral state, devices, settings) on the clipboard.
+- **Menu bar → Debug** shows the live per-device state of every camera and audio input, and **Copy Diagnostics** puts a full state dump (phase, deferral state, devices, settings) on the clipboard. The submenu is hidden until **Show debug menu** is enabled in Settings.
 - Every detection and scheduling decision is logged via `os.log` and persists:
 
   ```sh

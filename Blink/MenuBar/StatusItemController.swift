@@ -127,8 +127,10 @@ final class StatusItemController: NSObject, NSMenuDelegate {
             menu.addItem(ClosureMenuItem("Pause Until Resumed", handler: actions.pauseUntilResumed))
         }
 
-        menu.addItem(.separator())
-        menu.addItem(detectionSubmenuItem())
+        if settings.showDebugMenu {
+            menu.addItem(.separator())
+            menu.addItem(debugSubmenuItem())
+        }
         menu.addItem(.separator())
         menu.addItem(ClosureMenuItem("Settings…", keyEquivalent: ",", handler: actions.openSettings))
         if actions.canCheckForUpdates() {
@@ -173,8 +175,9 @@ final class StatusItemController: NSObject, NSMenuDelegate {
     }
 
     /// Live per-device detection state, so "why does Blink think I'm on a
-    /// call?" is always answerable from the menu bar.
-    private func detectionSubmenuItem() -> NSMenuItem {
+    /// call?" is answerable from the menu bar. Off by default; the
+    /// "Show debug menu" setting reveals it.
+    private func debugSubmenuItem() -> NSMenuItem {
         let submenu = NSMenu()
         submenu.autoenablesItems = false
         for row in capture.diagnosticRows() {
@@ -185,7 +188,7 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         submenu.addItem(.separator())
         submenu.addItem(ClosureMenuItem("Copy Diagnostics", handler: actions.copyDiagnostics))
 
-        let item = NSMenuItem(title: "Detection", action: nil, keyEquivalent: "")
+        let item = NSMenuItem(title: "Debug", action: nil, keyEquivalent: "")
         item.submenu = submenu
         return item
     }

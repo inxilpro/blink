@@ -389,6 +389,18 @@ struct AppSettingsTests {
         #expect(settings.skipDuringCapture)
         #expect(!settings.playSounds)
         #expect(!settings.showTimeRemainingInMenuBar)
+        #expect(!settings.showDebugMenu)
+    }
+
+    @Test("Show debug menu persists")
+    func debugMenuPersists() {
+        let suite = "BlinkTests-\(UUID().uuidString)"
+        defer { UserDefaults.standard.removePersistentDomain(forName: suite) }
+
+        let first = AppSettings(defaults: UserDefaults(suiteName: suite)!)
+        first.showDebugMenu = true
+
+        #expect(AppSettings(defaults: UserDefaults(suiteName: suite)!).showDebugMenu)
     }
 
     @Test("Values persist across instances")

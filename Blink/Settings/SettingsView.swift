@@ -99,6 +99,7 @@ struct SettingsView: View {
                     }
                 Toggle("Play sound at break start and end", isOn: $settings.playSounds)
                 Toggle("Show time until break in menu bar", isOn: $settings.showTimeRemainingInMenuBar)
+                Toggle("Show debug menu", isOn: $settings.showDebugMenu)
             }
         }
         .formStyle(.grouped)
